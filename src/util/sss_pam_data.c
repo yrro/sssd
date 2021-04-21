@@ -23,6 +23,8 @@
 */
 
 #include <security/pam_modules.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #include "util/sss_pam_data.h"
 #include "util/sss_cli_cmd.h"
