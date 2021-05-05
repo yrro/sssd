@@ -174,12 +174,12 @@ static void do_pam_chauthtok(struct LOCAL_request *lreq)
         goto done;
     }
 
-    ret = s3crypt_gen_salt(lreq, &salt);
+    ret = s3crypt_gen_salt(lreq, &salt); // do_pam_chauthtok
     NEQ_CHECK_OR_JUMP(ret, EOK, "Salt generation failed.\n",
                       lreq->error, ret, done);
     DEBUG(SSSDBG_CONF_SETTINGS, "Using salt [%s]\n", salt);
 
-    ret = s3crypt_sha512(lreq, password, salt, &new_hash);
+    ret = s3crypt_sha512(lreq, password, salt, &new_hash); // do_pam_chauthtok
     NEQ_CHECK_OR_JUMP(ret, EOK, "Hash generation failed.\n",
                       lreq->error, ret, done);
     DEBUG(SSSDBG_CONF_SETTINGS, "New hash [%s]\n", new_hash);
@@ -303,7 +303,7 @@ int LOCAL_pam_handler(struct pam_auth_req *preq)
             DEBUG(SSSDBG_CONF_SETTINGS,
                   "user: [%s], password hash: [%s]\n", username, pwdhash);
 
-            ret = s3crypt_sha512(lreq, password, pwdhash, &new_hash);
+            ret = s3crypt_sha512(lreq, password, pwdhash, &new_hash); // LOCAL_pam_handler
             NEQ_CHECK_OR_JUMP(ret, EOK, "nss_sha512_crypt failed.\n",
                               lreq->error, ret, done);
 

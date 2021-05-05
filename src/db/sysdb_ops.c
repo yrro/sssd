@@ -3257,13 +3257,13 @@ int sysdb_cache_password_ex(struct sss_domain_info *domain,
         return ENOMEM;
     }
 
-    ret = s3crypt_gen_salt(tmp_ctx, &salt);
+    ret = s3crypt_gen_salt(tmp_ctx, &salt); // sysdb_cache_pasword_ex
     if (ret) {
         DEBUG(SSSDBG_CONF_SETTINGS, "Failed to generate random salt.\n");
         goto fail;
     }
 
-    ret = s3crypt_sha512(tmp_ctx, password, salt, &hash);
+    ret = s3crypt_sha512(tmp_ctx, password, salt, &hash); // sysdb_cache_password_ex
     if (ret) {
         DEBUG(SSSDBG_CONF_SETTINGS, "Failed to create password hash.\n");
         goto fail;
@@ -4665,7 +4665,7 @@ static errno_t check_for_combined_2fa_password(struct sss_domain_info *domain,
     talloc_set_destructor((TALLOC_CTX *)short_pw,
                           sss_erase_talloc_mem_securely);
 
-    ret = s3crypt_sha512(tmp_ctx, short_pw, userhash, &comphash);
+    ret = s3crypt_sha512(tmp_ctx, short_pw, userhash, &comphash); // check_for_combined_2fa_password
     if (ret != EOK) {
         DEBUG(SSSDBG_CONF_SETTINGS, "Failed to create password hash.\n");
         ret = ERR_INTERNAL;
@@ -4798,7 +4798,7 @@ int sysdb_cache_auth(struct sss_domain_info *domain,
         goto done;
     }
 
-    ret = s3crypt_sha512(tmp_ctx, password, userhash, &comphash);
+    ret = s3crypt_sha512(tmp_ctx, password, userhash, &comphash); // sysdb_cache_auth
     if (ret) {
         DEBUG(SSSDBG_CONF_SETTINGS, "Failed to create password hash.\n");
         ret = ERR_INTERNAL;

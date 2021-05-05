@@ -288,6 +288,8 @@ AS_IF([test x$has_dbus != xno], [
     CFLAGS=$SAFE_CFLAGS
 ])
 
+PKG_CHECK_MODULES([LIBXCRYPT], [libxcrypt])
+
 # work around a bug in cov-build from Coverity
 test -n "$XML_CATALOG_FILES" || unset XML_CATALOG_FILES
 
