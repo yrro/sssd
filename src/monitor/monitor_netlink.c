@@ -709,6 +709,13 @@ static void addr_msg_handler(struct nl_object *obj, void *arg)
             DEBUG(SSSDBG_TRACE_LIBS, "Ignoring special address.\n");
             return;
         }
+
+        // Ignore RFC 8189 temporary addresses
+        if (rtnl_addr_get_flags(local_addr) & IFA_F_TEMPORARY) {
+            DEBUG(SSSDBG_TRACE_LIBS, "Ignoring temporary address.\n");
+            return;
+        }
+
         break;
 
     case AF_INET:
